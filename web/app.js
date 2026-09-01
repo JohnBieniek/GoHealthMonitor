@@ -12,12 +12,20 @@ function escapeHTML(value) {
   return String(value).replace(/[&<>'"]/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;" })[character]);
 }
 
+function checkedTime(value, includeSeconds = true) {
+  return new Date(value).toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+    ...(includeSeconds ? { second: "2-digit" } : {}),
+  });
+}
+
 function card(item) {
   const link = ` href="${escapeHTML(item.url)}" target="_blank" rel="noopener noreferrer" aria-label="Open ${escapeHTML(item.name)}"`;
   return `<a class="card ${item.environment} card-link ${item.healthy ? "" : "down"}"${link}>
     <div><h2>${escapeHTML(item.name)}</h2><p class="meta">${escapeHTML(item.group)} · ${escapeHTML(item.environment)}</p></div>
     <span class="badge">${item.healthy ? "OPERATIONAL" : "DEGRADED"}</span>
-    <div class="metrics"><span>HTTP <b>${item.statusCode || "ERR"}</b></span><span>LATENCY <b>${item.latencyMs} ms</b></span><span>CHECKED <b>${new Date(item.checkedAt).toLocaleTimeString()}</b></span></div>
+    <div class="metrics"><span>HTTP <b>${item.statusCode || "ERR"}</b></span><span>LATENCY <b>${item.latencyMs} ms</b></span><span>CHECKED <b class="checked-desktop">${checkedTime(item.checkedAt)}</b><b class="checked-mobile">${checkedTime(item.checkedAt, false)}</b></span></div>
   </a>`;
 }
 

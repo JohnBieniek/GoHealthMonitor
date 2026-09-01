@@ -100,6 +100,7 @@ button:focus-visible { outline: 2px solid var(--purple); outline-offset: 3px; }
 .down .badge { border-color: #74404a; background: #251317; color: var(--bad); }
 .metrics { grid-column: 1/-1; display: flex; gap: 24px; padding-top: 14px; border-top: 1px solid var(--line); color: var(--muted); font: 12px ui-monospace, monospace; }
 .metrics b { color: var(--text); font-weight: 600; }
+.checked-mobile { display: none; }
 .loading { color: var(--muted); }
 
 footer { display: flex; justify-content: space-between; margin-top: 34px; padding-top: 21px; border-top: 1px solid var(--line); color: var(--muted); font: 12px ui-monospace, monospace; }
@@ -119,7 +120,9 @@ footer a:hover { text-decoration: underline; text-underline-offset: 3px; }
   .toolbar { align-items: stretch; flex-direction: column; }
   .filters { overflow: auto; }
   .filters button { flex: 1; }
-  .metrics { gap: 14px; flex-wrap: wrap; }
+  .metrics { gap: 10px; flex-wrap: nowrap; font-size: 11px; }
+  .checked-desktop { display: none; }
+  .checked-mobile { display: inline; }
   .alert-policy { align-items: start; }
   footer { gap: 16px; flex-direction: column; }
 }
