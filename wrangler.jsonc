@@ -3,7 +3,7 @@
   "name": "go-health-monitor",
   "main": "worker/src/index.ts",
   "compatibility_date": "2026-09-01",
-  "compatibility_flags": ["nodejs_compat"],
+  "compatibility_flags": ["global_fetch_strictly_public"],
   "assets": {
     "directory": "./web",
     "binding": "ASSETS",
