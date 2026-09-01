@@ -20,6 +20,9 @@ button:hover,button.active { color:var(--ink); background:var(--lime); border-co
 .filters { display:flex; } .filters button+button { border-left:0; }
 .refresh { color:var(--mint); border-color:#2b5148; }
 .systems { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+.systems.paired { grid-template-columns:1fr; }
+.system-pair { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; align-items:start; }
+.pair-column { display:grid; gap:12px; }
 .card { position:relative; display:grid; grid-template-columns:1fr auto; gap:16px; padding:22px; background:linear-gradient(135deg,#0e1d1a,#0a1513); border:1px solid var(--line); overflow:hidden; }
 .card::before { content:""; position:absolute; inset:0 auto 0 0; width:3px; background:var(--mint); } .card.down::before { background:var(--bad); }
 .card h2 { margin:0; font-size:17px; } .card .meta { margin:4px 0 0; color:var(--muted); font:12px ui-monospace,monospace; }
@@ -29,4 +32,4 @@ button:hover,button.active { color:var(--ink); background:var(--lime); border-co
 .metrics b { color:#e7f2ee; font-weight:600; }
 .loading { color:var(--muted); }
 footer { display:flex; justify-content:space-between; margin-top:34px; padding-top:22px; border-top:1px solid var(--line); color:var(--muted); font:12px ui-monospace,monospace; } footer a { color:var(--mint); text-decoration:none; }
-@media (max-width:760px) { main{width:min(100% - 24px,1180px);padding-top:34px}.hero{display:block}.pulse{display:inline-flex;margin-top:20px}.summary{grid-template-columns:1fr 1fr}.summary article:nth-child(2){border-right:0}.summary article:nth-child(-n+2){border-bottom:1px solid var(--line)}.systems{grid-template-columns:1fr}.toolbar{align-items:stretch;flex-direction:column}.filters{overflow:auto}.filters button{flex:1}footer{gap:16px;flex-direction:column} }
+@media (max-width:760px) { main{width:min(100% - 24px,1180px);padding-top:34px}.hero{display:block}.pulse{display:inline-flex;margin-top:20px}.summary{grid-template-columns:1fr 1fr}.summary article:nth-child(2){border-right:0}.summary article:nth-child(-n+2){border-bottom:1px solid var(--line)}.systems,.system-pair{grid-template-columns:1fr}.toolbar{align-items:stretch;flex-direction:column}.filters{overflow:auto}.filters button{flex:1}footer{gap:16px;flex-direction:column} }

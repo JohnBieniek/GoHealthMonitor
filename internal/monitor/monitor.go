@@ -15,6 +15,7 @@ import (
 
 type Target struct {
 	ID          string `json:"id"`
+	Project     string `json:"project"`
 	Name        string `json:"name"`
 	URL         string `json:"url"`
 	Environment string `json:"environment"`

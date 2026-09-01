@@ -7,6 +7,30 @@ function escapeHTML(value) {
   return String(value).replace(/[&<>'"]/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;" })[character]);
 }
 
+function card(item) {
+  return `<article class="card ${item.healthy ? "" : "down"}">
+    <div><h2>${escapeHTML(item.name)}</h2><p class="meta">${escapeHTML(item.group)} · ${escapeHTML(item.environment)}</p></div>
+    <span class="badge">${item.healthy ? "OPERATIONAL" : "DEGRADED"}</span>
+    <div class="metrics"><span>HTTP <b>${item.statusCode || "ERR"}</b></span><span>LATENCY <b>${item.latencyMs} ms</b></span><span>CHECKED <b>${new Date(item.checkedAt).toLocaleTimeString()}</b></span></div>
+  </article>`;
+}
+
+function pairedCards(results) {
+  const projects = new Map();
+  results.forEach((item) => {
+    if (!projects.has(item.project)) projects.set(item.project, []);
+    projects.get(item.project).push(item);
+  });
+  return [...projects.values()].map((items) => {
+    const production = items.filter((item) => item.environment === "production");
+    const betas = items.filter((item) => item.environment === "beta");
+    return `<section class="system-pair">
+      <div class="pair-column">${production.map(card).join("")}</div>
+      <div class="pair-column">${betas.map(card).join("")}</div>
+    </section>`;
+  }).join("");
+}
+
 function render() {
   if (!snapshot) return;
   const visible = snapshot.results.filter((item) => filter === "all" || item.environment === filter);
@@ -16,12 +40,8 @@ function render() {
   document.querySelector("#unhealthy").textContent = String(snapshot.results.length - healthy);
   document.querySelector("#latency").textContent = `${latencies[Math.floor(latencies.length / 2)] || 0} ms`;
   document.querySelector("#checked").textContent = new Date(snapshot.checkedAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
-  systems.innerHTML = visible.map((item) => `
-    <article class="card ${item.healthy ? "" : "down"}">
-      <div><h2>${escapeHTML(item.name)}</h2><p class="meta">${escapeHTML(item.group)} · ${escapeHTML(item.environment)}</p></div>
-      <span class="badge">${item.healthy ? "OPERATIONAL" : "DEGRADED"}</span>
-      <div class="metrics"><span>HTTP <b>${item.statusCode || "ERR"}</b></span><span>LATENCY <b>${item.latencyMs} ms</b></span><span>CHECKED <b>${new Date(item.checkedAt).toLocaleTimeString()}</b></span></div>
-    </article>`).join("");
+  systems.classList.toggle("paired", filter === "all");
+  systems.innerHTML = filter === "all" ? pairedCards(visible) : visible.map(card).join("");
 }
 
 async function load(path = "/api/status", options) {
