@@ -2,6 +2,10 @@ const systems = document.querySelector("#systems");
 const refresh = document.querySelector("#refresh");
 let snapshot = null;
 let filter = "all";
+const sections = [
+  { id: "sites", title: "Whimsy & Client Sites", description: "Public sites operated by Whimsy" },
+  { id: "internal", title: "Internal Tools", description: "Portfolio infrastructure and technical systems" },
+];
 
 function escapeHTML(value) {
   return String(value).replace(/[&<>'"]/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;" })[character]);
@@ -27,9 +31,28 @@ function pairedCards(results) {
   return [...projects.values()].map((items) => {
     const production = items.filter((item) => item.environment === "production");
     const betas = items.filter((item) => item.environment === "beta");
-    return `<section class="system-pair">
+    return `<div class="system-pair">
       <div class="pair-column">${production.map(card).join("")}</div>
       <div class="pair-column">${betas.map(card).join("")}</div>
+    </div>`;
+  }).join("");
+}
+
+function sectionFor(item) {
+  return item.section || (["portfolio", "java-demo"].includes(item.project) ? "internal" : "sites");
+}
+
+function groupedSystems(results) {
+  return sections.map((section) => {
+    const items = results.filter((item) => sectionFor(item) === section.id);
+    if (items.length === 0) return "";
+    const content = filter === "all" ? pairedCards(items) : items.map(card).join("");
+    return `<section class="system-section" aria-labelledby="section-${section.id}">
+      <header class="system-section-header">
+        <div><p>${escapeHTML(section.description)}</p><h2 id="section-${section.id}">${escapeHTML(section.title)}</h2></div>
+        <span>${items.length} endpoint${items.length === 1 ? "" : "s"}</span>
+      </header>
+      <div class="${filter === "all" ? "section-pairs" : "section-grid"}">${content}</div>
     </section>`;
   }).join("");
 }
@@ -43,8 +66,7 @@ function render() {
   document.querySelector("#unhealthy").textContent = String(snapshot.results.length - healthy);
   document.querySelector("#latency").textContent = `${latencies[Math.floor(latencies.length / 2)] || 0} ms`;
   document.querySelector("#checked").textContent = new Date(snapshot.checkedAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
-  systems.classList.toggle("paired", filter === "all");
-  systems.innerHTML = filter === "all" ? pairedCards(visible) : visible.map(card).join("");
+  systems.innerHTML = groupedSystems(visible);
 }
 
 async function load(path = "/api/status", options) {

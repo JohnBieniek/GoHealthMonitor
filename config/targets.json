@@ -1,11 +1,11 @@
 [
-  { "id": "portfolio", "project": "portfolio", "name": "John Bieniek Portfolio", "url": "https://johnbieniek.com/", "environment": "production", "group": "Portfolio" },
-  { "id": "portfolio-beta", "project": "portfolio", "name": "Portfolio Beta", "url": "https://master.johns-portfolio.pages.dev/", "environment": "beta", "group": "Cloudflare Betas" },
-  { "id": "whimsy", "project": "whimsy", "name": "Whimsy", "url": "https://experiencewhimsy.com/", "environment": "production", "group": "Client & Product Sites" },
-  { "id": "whimsy-beta", "project": "whimsy", "name": "Whimsy Beta", "url": "https://whimsyui-beta.pages.dev/", "environment": "beta", "group": "Cloudflare Betas" },
-  { "id": "multiverse-guild", "project": "guild", "name": "Multiverse Adventurers Guild", "url": "https://multiverseadventurersguild.com/", "environment": "production", "group": "Client & Product Sites" },
-  { "id": "guild-develop", "project": "guild", "name": "Multiverse Adventurers Guild Beta", "url": "https://develop.multiverseadventurersguild.pages.dev/", "environment": "beta", "group": "Cloudflare Betas" },
-  { "id": "lakeland-cabaret", "project": "lakeland", "name": "Lakeland Cabaret", "url": "https://lakelandcabaret.com/", "environment": "production", "group": "Client & Product Sites" },
-  { "id": "lakeland-beta", "project": "lakeland", "name": "Lakeland Cabaret Beta", "url": "https://lakelandcabaretui-dev.pages.dev/", "environment": "beta", "group": "Cloudflare Betas" },
-  { "id": "java-demo", "project": "java-demo", "name": "Java Demo API", "url": "http://java26demo-env.eba-tsngktpv.us-east-2.elasticbeanstalk.com/swagger-ui/index.html", "environment": "production", "group": "Technical Demos" }
+  { "id": "portfolio", "project": "portfolio", "section": "internal", "name": "John Bieniek Portfolio", "url": "https://johnbieniek.com/", "environment": "production", "group": "Portfolio" },
+  { "id": "portfolio-beta", "project": "portfolio", "section": "internal", "name": "Portfolio Beta", "url": "https://master.johns-portfolio.pages.dev/", "environment": "beta", "group": "Cloudflare Betas" },
+  { "id": "whimsy", "project": "whimsy", "section": "sites", "name": "Whimsy", "url": "https://experiencewhimsy.com/", "environment": "production", "group": "Whimsy & Client Sites" },
+  { "id": "whimsy-beta", "project": "whimsy", "section": "sites", "name": "Whimsy Beta", "url": "https://whimsyui-beta.pages.dev/", "environment": "beta", "group": "Cloudflare Betas" },
+  { "id": "multiverse-guild", "project": "guild", "section": "sites", "name": "Multiverse Adventurers Guild", "url": "https://multiverseadventurersguild.com/", "environment": "production", "group": "Whimsy & Client Sites" },
+  { "id": "guild-develop", "project": "guild", "section": "sites", "name": "Multiverse Adventurers Guild Beta", "url": "https://develop.multiverseadventurersguild.pages.dev/", "environment": "beta", "group": "Cloudflare Betas" },
+  { "id": "lakeland-cabaret", "project": "lakeland", "section": "sites", "name": "Lakeland Cabaret", "url": "https://lakelandcabaret.com/", "environment": "production", "group": "Whimsy & Client Sites" },
+  { "id": "lakeland-beta", "project": "lakeland", "section": "sites", "name": "Lakeland Cabaret Beta", "url": "https://lakelandcabaretui-dev.pages.dev/", "environment": "beta", "group": "Cloudflare Betas" },
+  { "id": "java-demo", "project": "java-demo", "section": "internal", "name": "Java Demo API", "url": "http://java26demo-env.eba-tsngktpv.us-east-2.elasticbeanstalk.com/swagger-ui/index.html", "environment": "production", "group": "Technical Demos" }
 ]
