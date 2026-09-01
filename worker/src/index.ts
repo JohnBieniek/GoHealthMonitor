@@ -65,6 +65,10 @@ function escapeHTML(value: string): string {
 }
 
 async function sendAlerts(env: Env, results: CheckResult[]): Promise<void> {
+  if (!env.ALERT_EMAIL || !env.ALERT_FROM || !env.ALERT_TO || !env.LATENCY_THRESHOLD_MS) {
+    console.log(JSON.stringify({ message: "monitor alerts disabled for this environment" }));
+    return;
+  }
   const threshold = Number(env.LATENCY_THRESHOLD_MS);
   const issues = results.map((result) => issueFor(result, threshold)).filter((issue): issue is Issue => issue !== null);
   const states = await Promise.all(results.map((result) => env.STATUS.get<AlertState>(`${alertKeyPrefix}${result.id}`, "json")));

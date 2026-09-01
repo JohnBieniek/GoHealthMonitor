@@ -2,9 +2,11 @@
   "name": "go-health-monitor-edge",
   "private": true,
   "scripts": {
-    "check": "tsc --noEmit && wrangler deploy --dry-run",
+    "check": "tsc --noEmit && wrangler deploy --dry-run --env=\"\"",
+    "check:develop": "tsc --noEmit && wrangler deploy --dry-run --env develop",
     "dev": "wrangler dev --test-scheduled",
-    "deploy": "wrangler deploy",
+    "deploy": "wrangler deploy --env=\"\"",
+    "deploy:develop": "wrangler deploy --env develop",
     "types": "wrangler types worker-configuration.d.ts"
   },
   "devDependencies": {

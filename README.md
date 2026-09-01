@@ -27,4 +27,9 @@ npm run check
 npm run deploy
 ```
 
+Production deploys from `master` with `npm run deploy`. The public beta uses
+the `develop` branch and deploys independently with `npm run deploy:develop`.
+The beta has its own KV namespace and no alerting cron, so it cannot duplicate
+production incident email.
+
 Targets live in [`config/targets.json`](config/targets.json). Add stable health URLs there; avoid ephemeral deployment hashes.

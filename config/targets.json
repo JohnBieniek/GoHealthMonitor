@@ -3,6 +3,8 @@
   { "id": "portfolio-beta", "project": "portfolio", "section": "internal", "name": "Portfolio Beta", "url": "https://master.johns-portfolio.pages.dev/", "environment": "beta", "group": "Cloudflare Betas" },
   { "id": "whimsy", "project": "whimsy", "section": "sites", "name": "Whimsy", "url": "https://experiencewhimsy.com/", "environment": "production", "group": "Whimsy & Client Sites" },
   { "id": "whimsy-beta", "project": "whimsy", "section": "sites", "name": "Whimsy Beta", "url": "https://whimsyui-beta.pages.dev/", "environment": "beta", "group": "Cloudflare Betas" },
+  { "id": "warden", "project": "warden", "section": "sites", "name": "Whimsy's Warden", "url": "https://go-health-monitor.redacted.workers.dev/", "environment": "production", "group": "Whimsy & Client Sites" },
+  { "id": "warden-beta", "project": "warden", "section": "sites", "name": "Whimsy's Warden Beta", "url": "https://go-health-monitor-beta.redacted.workers.dev/", "environment": "beta", "group": "Cloudflare Betas" },
   { "id": "multiverse-guild", "project": "guild", "section": "sites", "name": "Multiverse Adventurers Guild", "url": "https://multiverseadventurersguild.com/", "environment": "production", "group": "Whimsy & Client Sites" },
   { "id": "guild-develop", "project": "guild", "section": "sites", "name": "Multiverse Adventurers Guild Beta", "url": "https://develop.multiverseadventurersguild.pages.dev/", "environment": "beta", "group": "Cloudflare Betas" },
   { "id": "lakeland-cabaret", "project": "lakeland", "section": "sites", "name": "Lakeland Cabaret", "url": "https://lakelandcabaret.com/", "environment": "production", "group": "Whimsy & Client Sites" },
