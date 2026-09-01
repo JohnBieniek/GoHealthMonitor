@@ -1,4 +1,4 @@
-# System Atlas — Go Health Monitor
+# Whimsy's Warden — Go Health Monitor
 
 A portfolio-grade availability monitor built around a bounded Go worker pool and deployed at the Cloudflare edge. It checks John Bieniek's production applications and stable beta deployments, reports status and latency, and presents the results in a responsive operational dashboard.
 
