@@ -1,11 +1,9 @@
 [
   { "id": "portfolio", "project": "portfolio", "name": "John Bieniek Portfolio", "url": "https://johnbieniek.com/", "environment": "production", "group": "Portfolio" },
-  { "id": "portfolio-beta", "project": "portfolio", "name": "Portfolio Beta", "url": "https://johns-portfolio-beta.redacted.workers.dev/", "environment": "beta", "group": "Cloudflare Betas" },
-  { "id": "portfolio-master", "project": "portfolio", "name": "Portfolio Master Preview", "url": "https://master.johns-portfolio.pages.dev/", "environment": "beta", "group": "Cloudflare Betas" },
+  { "id": "portfolio-beta", "project": "portfolio", "name": "Portfolio Beta", "url": "https://master.johns-portfolio.pages.dev/", "environment": "beta", "group": "Cloudflare Betas" },
   { "id": "whimsy", "project": "whimsy", "name": "Whimsy", "url": "https://experiencewhimsy.com/", "environment": "production", "group": "Client & Product Sites" },
   { "id": "whimsy-beta", "project": "whimsy", "name": "Whimsy Beta", "url": "https://whimsyui-beta.pages.dev/", "environment": "beta", "group": "Cloudflare Betas" },
   { "id": "multiverse-guild", "project": "guild", "name": "Multiverse Adventurers Guild", "url": "https://multiverseadventurersguild.com/", "environment": "production", "group": "Client & Product Sites" },
-  { "id": "guild-beta", "project": "guild", "name": "Guild Beta Worker", "url": "https://multiverseadventurersguild-beta.redacted.workers.dev/", "environment": "beta", "group": "Cloudflare Betas" },
   { "id": "guild-develop", "project": "guild", "name": "Guild Develop Preview", "url": "https://develop.multiverseadventurersguild.pages.dev/", "environment": "beta", "group": "Cloudflare Betas" },
   { "id": "lakeland-cabaret", "project": "lakeland", "name": "Lakeland Cabaret", "url": "https://lakelandcabaret.com/", "environment": "production", "group": "Client & Product Sites" },
   { "id": "lakeland-beta", "project": "lakeland", "name": "Lakeland Cabaret Beta", "url": "https://lakelandcabaretui-dev.pages.dev/", "environment": "beta", "group": "Cloudflare Betas" },
