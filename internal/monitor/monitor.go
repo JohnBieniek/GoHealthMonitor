@@ -70,8 +70,8 @@ func LoadTargets(reader io.Reader) ([]Target, error) {
 			return nil, errors.New("every target needs an id and name")
 		}
 		parsed, err := url.ParseRequestURI(target.URL)
-		if err != nil || parsed.Scheme != "https" || parsed.Host == "" {
-			return nil, fmt.Errorf("target %q must use a valid HTTPS URL", target.ID)
+		if err != nil || (parsed.Scheme != "http" && parsed.Scheme != "https") || parsed.Host == "" {
+			return nil, fmt.Errorf("target %q must use a valid HTTP or HTTPS URL", target.ID)
 		}
 		if _, exists := seen[target.ID]; exists {
 			return nil, fmt.Errorf("duplicate target id %q", target.ID)

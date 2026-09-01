@@ -10,9 +10,16 @@ import (
 )
 
 func TestLoadTargetsRejectsUnsafeURL(t *testing.T) {
-	_, err := LoadTargets(strings.NewReader(`[{"id":"x","name":"X","url":"http://example.com"}]`))
+	_, err := LoadTargets(strings.NewReader(`[{"id":"x","name":"X","url":"ftp://example.com"}]`))
 	if err == nil {
-		t.Fatal("expected HTTP URL to be rejected")
+		t.Fatal("expected non-HTTP URL to be rejected")
+	}
+}
+
+func TestLoadTargetsAcceptsHTTPHealthEndpoint(t *testing.T) {
+	targets, err := LoadTargets(strings.NewReader(`[{"id":"x","name":"X","url":"http://example.com/health"}]`))
+	if err != nil || len(targets) != 1 {
+		t.Fatalf("expected HTTP health endpoint to be accepted: %v", err)
 	}
 }
 
