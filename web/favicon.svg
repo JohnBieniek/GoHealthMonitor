@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Whimsy's Warden">
+  <rect width="64" height="64" fill="#ffffff"/>
+  <path fill="#3e155f" d="M5 5h18v7h-4l6 38h4l4-25-3-13h-4V5h18v7h-4l4 38h4l6-38h-4V5h11v7h-3l-7 47H38l-4-23-4 23H16L9 12H5z"/>
+</svg>
