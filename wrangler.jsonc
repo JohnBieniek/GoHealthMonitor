@@ -39,7 +39,9 @@
   "env": {
     "develop": {
       "name": "go-health-monitor-beta",
-      "routes": [],
+      "routes": [
+        { "pattern": "warden-beta.experiencewhimsy.com", "custom_domain": true }
+      ],
       "kv_namespaces": [
         { "binding": "STATUS" }
       ],
