@@ -2,6 +2,10 @@
 
 A portfolio-grade availability monitor built around a bounded Go worker pool and deployed at the Cloudflare edge. It checks John Bieniek's production applications and stable beta deployments, reports status and latency, and presents the results in a responsive operational dashboard.
 
+Production is mounted into the Whimsy site at
+[`experiencewhimsy.com/warden/`](https://experiencewhimsy.com/warden/). The
+standalone Worker URL remains available as an operational fallback.
+
 ## Engineering highlights
 
 - Concurrent Go probe engine with bounded workers, cancellation, connection reuse, redirect limits, TLS minimums, and deterministic result ordering.

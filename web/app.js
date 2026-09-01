@@ -1,5 +1,6 @@
 const systems = document.querySelector("#systems");
 const refresh = document.querySelector("#refresh");
+const basePath = window.location.pathname.startsWith("/warden") ? "/warden" : "";
 let snapshot = null;
 let filter = "all";
 const sections = [
@@ -67,7 +68,7 @@ function render() {
   systems.innerHTML = groupedSystems(visible);
 }
 
-async function load(path = "/api/status", options) {
+async function load(path = `${basePath}/api/status`, options) {
   refresh.disabled = true;
   refresh.textContent = "Checking…";
   try {
@@ -89,5 +90,5 @@ document.querySelectorAll("[data-filter]").forEach((button) => button.addEventLi
   filter = button.dataset.filter;
   render();
 }));
-refresh.addEventListener("click", () => load("/api/refresh", { method: "POST" }));
+refresh.addEventListener("click", () => load(`${basePath}/api/refresh`, { method: "POST" }));
 load();

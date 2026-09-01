@@ -11,6 +11,8 @@ type CheckResult = Target & {
 
 const snapshotKey = "status:latest";
 const alertKeyPrefix = "alert:";
+const mountPath = "/warden";
+const dashboardURL = "https://experiencewhimsy.com/warden/";
 
 type Issue = {
   kind: "down" | "latency";
@@ -100,11 +102,11 @@ async function sendAlerts(env: Env, results: CheckResult[]): Promise<void> {
     to: env.ALERT_TO,
     from: { email: env.ALERT_FROM, name: "Whimsy's Warden" },
     subject: `[Whimsy's Warden] ${count} new service alert${count === 1 ? "" : "s"}`,
-    text: `Whimsy's Warden detected ${count} new incident${count === 1 ? "" : "s"}.\n\n${lines.join("\n\n")}\n\nDashboard: https://go-health-monitor.redacted.workers.dev/`,
+    text: `Whimsy's Warden detected ${count} new incident${count === 1 ? "" : "s"}.\n\n${lines.join("\n\n")}\n\nDashboard: ${dashboardURL}`,
     html: `<div style="font-family:Arial,sans-serif;color:#111014"><h1 style="color:#4b0c83">Whimsy's Warden</h1>
       <p>Detected ${count} new incident${count === 1 ? "" : "s"}.</p>
       <table style="border-collapse:collapse;width:100%"><thead><tr><th align="left">Service</th><th align="left">Alert</th><th align="left">HTTP</th><th align="left">Latency</th></tr></thead><tbody>${rows}</tbody></table>
-      <p><a href="https://go-health-monitor.redacted.workers.dev/" style="color:#4b0c83">Open Whimsy's Warden</a></p></div>`,
+      <p><a href="${dashboardURL}" style="color:#4b0c83">Open Whimsy's Warden</a></p></div>`,
   });
   const alertedAt = new Date().toISOString();
   await Promise.all(newIssues.map((issue) => env.STATUS.put(`${alertKeyPrefix}${issue.result.id}`, JSON.stringify({ kind: issue.kind, alertedAt } satisfies AlertState))));
@@ -130,18 +132,24 @@ function json(data: unknown, status = 200): Response {
 export default {
   async fetch(request, env): Promise<Response> {
     const url = new URL(request.url);
+    if (url.pathname === mountPath) return Response.redirect(`${url.origin}${mountPath}/`, 308);
+    const mounted = url.pathname.startsWith(`${mountPath}/`);
+    const pathname = mounted ? url.pathname.slice(mountPath.length) : url.pathname;
     try {
-      if (url.pathname === "/api/status") {
+      if (pathname === "/api/status") {
         const stored = await env.STATUS.get(snapshotKey, "json");
         return stored ? json(stored) : json(await collect(env));
       }
-      if (url.pathname === "/api/refresh" && request.method === "POST") {
+      if (pathname === "/api/refresh" && request.method === "POST") {
         return json(await collect(env));
       }
-      if (url.pathname === "/api/health") {
+      if (pathname === "/api/health") {
         return json({ status: "ok", targetCount: targets.length });
       }
-      return env.ASSETS.fetch(request);
+      if (!mounted) return env.ASSETS.fetch(request);
+      const assetURL = new URL(request.url);
+      assetURL.pathname = pathname;
+      return env.ASSETS.fetch(new Request(assetURL, request));
     } catch (error) {
       const message = error instanceof Error ? error.message : "Unknown error";
       console.error(JSON.stringify({ message: "request failed", error: message, path: url.pathname }));
