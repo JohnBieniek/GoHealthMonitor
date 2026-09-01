@@ -7,7 +7,7 @@ A portfolio-grade availability monitor built around a bounded Go worker pool and
 - Concurrent Go probe engine with bounded workers, cancellation, connection reuse, redirect limits, TLS minimums, and deterministic result ordering.
 - Shared declarative target inventory for production and beta environments.
 - Cloudflare Worker cron checks every five minutes and persists the latest snapshot in KV.
-- Transition-based email alerts to `monitoring@experiencewhimsy.com` when a target is down or exceeds 500 ms, with duplicate suppression in KV.
+- Transition-based alerts to Whimsy when a target is down or exceeds 500 ms, with duplicate suppression in KV.
 - Manual edge refresh, structured logs, no-store API responses, and static assets served by Workers.
 - Accessible, dependency-free dashboard with production/beta filtering.
 
