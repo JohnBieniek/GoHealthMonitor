@@ -10,6 +10,17 @@ type CheckResult = Target & {
 };
 
 const snapshotKey = "status:latest";
+const alertKeyPrefix = "alert:";
+
+type Issue = {
+  kind: "down" | "latency";
+  result: CheckResult;
+};
+
+type AlertState = {
+  kind: Issue["kind"];
+  alertedAt: string;
+};
 
 async function checkTarget(target: Target): Promise<CheckResult> {
   const started = performance.now();
@@ -43,10 +54,64 @@ async function checkTarget(target: Target): Promise<CheckResult> {
   }
 }
 
-async function collect(env: Env): Promise<{ checkedAt: string; results: CheckResult[] }> {
+function issueFor(result: CheckResult, threshold: number): Issue | null {
+  if (!result.healthy) return { kind: "down", result };
+  if (result.latencyMs > threshold) return { kind: "latency", result };
+  return null;
+}
+
+function escapeHTML(value: string): string {
+  return value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+}
+
+async function sendAlerts(env: Env, results: CheckResult[]): Promise<void> {
+  const threshold = Number(env.LATENCY_THRESHOLD_MS);
+  const issues = results.map((result) => issueFor(result, threshold)).filter((issue): issue is Issue => issue !== null);
+  const states = await Promise.all(results.map((result) => env.STATUS.get<AlertState>(`${alertKeyPrefix}${result.id}`, "json")));
+  const newIssues = issues.filter((issue) => {
+    const index = results.findIndex((result) => result.id === issue.result.id);
+    return states[index]?.kind !== issue.kind;
+  });
+
+  const activeIDs = new Set(issues.map((issue) => issue.result.id));
+  await Promise.all(results.filter((result) => !activeIDs.has(result.id) && states[results.indexOf(result)] !== null)
+    .map((result) => env.STATUS.delete(`${alertKeyPrefix}${result.id}`)));
+  if (newIssues.length === 0) return;
+
+  const lines = newIssues.map(({ kind, result }) => [
+    `${result.name}: ${kind === "down" ? "DOWN" : "LATENCY SPIKE"}`,
+    `URL: ${result.url}`,
+    `HTTP: ${result.statusCode || "ERR"}`,
+    `Latency: ${result.latencyMs} ms`,
+    `Checked: ${result.checkedAt}`,
+  ].join("\n"));
+  const rows = newIssues.map(({ kind, result }) => `<tr>
+    <td style="padding:8px;border-bottom:1px solid #d7ddd9"><strong>${escapeHTML(result.name)}</strong></td>
+    <td style="padding:8px;border-bottom:1px solid #d7ddd9">${kind === "down" ? "Down" : "Latency spike"}</td>
+    <td style="padding:8px;border-bottom:1px solid #d7ddd9">${result.statusCode || "ERR"}</td>
+    <td style="padding:8px;border-bottom:1px solid #d7ddd9">${result.latencyMs} ms</td>
+  </tr>`).join("");
+  const count = newIssues.length;
+  const response = await env.ALERT_EMAIL.send({
+    to: env.ALERT_TO,
+    from: { email: env.ALERT_FROM, name: "Whimsy's Warden" },
+    subject: `[Whimsy's Warden] ${count} new service alert${count === 1 ? "" : "s"}`,
+    text: `Whimsy's Warden detected ${count} new incident${count === 1 ? "" : "s"}.\n\n${lines.join("\n\n")}\n\nDashboard: https://go-health-monitor.redacted.workers.dev/`,
+    html: `<div style="font-family:Arial,sans-serif;color:#111014"><h1 style="color:#4b0c83">Whimsy's Warden</h1>
+      <p>Detected ${count} new incident${count === 1 ? "" : "s"}.</p>
+      <table style="border-collapse:collapse;width:100%"><thead><tr><th align="left">Service</th><th align="left">Alert</th><th align="left">HTTP</th><th align="left">Latency</th></tr></thead><tbody>${rows}</tbody></table>
+      <p><a href="https://go-health-monitor.redacted.workers.dev/" style="color:#4b0c83">Open Whimsy's Warden</a></p></div>`,
+  });
+  const alertedAt = new Date().toISOString();
+  await Promise.all(newIssues.map((issue) => env.STATUS.put(`${alertKeyPrefix}${issue.result.id}`, JSON.stringify({ kind: issue.kind, alertedAt } satisfies AlertState))));
+  console.log(JSON.stringify({ message: "monitor alerts accepted", messageId: response.messageId, alerts: count }));
+}
+
+async function collect(env: Env, alert = false): Promise<{ checkedAt: string; results: CheckResult[] }> {
   const results = await Promise.all(targets.map((target) => checkTarget(target)));
   const snapshot = { checkedAt: new Date().toISOString(), results };
   await env.STATUS.put(snapshotKey, JSON.stringify(snapshot));
+  if (alert) await sendAlerts(env, results);
   console.log(JSON.stringify({ message: "health checks complete", healthy: results.filter((item) => item.healthy).length, total: results.length }));
   return snapshot;
 }
@@ -80,6 +145,6 @@ export default {
     }
   },
   async scheduled(_controller, env, ctx): Promise<void> {
-    ctx.waitUntil(collect(env));
+    ctx.waitUntil(collect(env, true));
   },
 } satisfies ExportedHandler<Env>;

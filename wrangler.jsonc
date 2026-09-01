@@ -12,6 +12,18 @@
   "kv_namespaces": [
     { "binding": "STATUS" }
   ],
+  "send_email": [
+    {
+      "name": "ALERT_EMAIL",
+      "destination_address": "monitoring@experiencewhimsy.com",
+      "allowed_sender_addresses": ["warden@experiencewhimsy.com"]
+    }
+  ],
+  "vars": {
+    "ALERT_FROM": "warden@experiencewhimsy.com",
+    "ALERT_TO": "monitoring@experiencewhimsy.com",
+    "LATENCY_THRESHOLD_MS": "500"
+  },
   "triggers": {
     "crons": ["*/5 * * * *"]
   },

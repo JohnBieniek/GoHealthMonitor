@@ -110,6 +110,12 @@ h1 span { color: var(--mint-strong); }
 .summary span { display: block; color: var(--muted); font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; }
 .summary strong { display: block; margin-top: 8px; color: var(--purple-deep); font: 800 28px ui-monospace, monospace; }
 
+.alert-policy { display: flex; align-items: center; gap: 16px; margin: 0 0 24px; padding: 18px 20px; border: 2px solid var(--ink); border-radius: 16px; background: var(--mint); box-shadow: 4px 4px 0 var(--purple-light); }
+.alert-icon { display: grid; flex: 0 0 44px; width: 44px; height: 44px; place-items: center; border-radius: 50%; background: var(--purple); color: var(--paper); font: 900 20px ui-monospace, monospace; }
+.alert-policy strong { color: var(--purple-deep); font-size: 16px; }
+.alert-policy p { margin: 3px 0 0; color: var(--muted); }
+.alert-policy b { color: var(--ink); }
+
 .toolbar { display: flex; justify-content: space-between; gap: 15px; margin-bottom: 18px; }
 button { padding: 11px 16px; border: 2px solid var(--purple); background: var(--paper); color: var(--purple); cursor: pointer; font: 800 12px ui-monospace, monospace; }
 button:hover, button.active { border-color: var(--purple); background: var(--purple); color: var(--paper); }
@@ -173,5 +179,6 @@ footer a { color: var(--purple); font-weight: 800; text-decoration-thickness: 2p
   .filters { overflow: auto; }
   .filters button { flex: 1; }
   .metrics { gap: 14px; flex-wrap: wrap; }
+  .alert-policy { align-items: flex-start; }
   footer { gap: 16px; flex-direction: column; }
 }
