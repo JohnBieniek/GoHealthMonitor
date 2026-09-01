@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Live health and latency dashboard for John Bieniek's portfolio applications.">
+  <title>System Atlas — Portfolio Health</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <main>
+    <header class="hero">
+      <div>
+        <p class="eyebrow">GO CONCURRENCY · CLOUDFLARE EDGE</p>
+        <h1>System <span>Atlas</span></h1>
+        <p class="lede">A live operational view across production apps and beta deployments.</p>
+      </div>
+      <div class="pulse" aria-label="Monitor active"><i></i><span>MONITOR ACTIVE</span></div>
+    </header>
+
+    <section class="summary" aria-label="System summary">
+      <article><span>Operational</span><strong id="healthy">—</strong></article>
+      <article><span>Degraded</span><strong id="unhealthy">—</strong></article>
+      <article><span>Median latency</span><strong id="latency">—</strong></article>
+      <article><span>Last edge check</span><strong id="checked">Loading</strong></article>
+    </section>
+
+    <div class="toolbar">
+      <div class="filters" role="group" aria-label="Environment filter">
+        <button class="active" data-filter="all">All systems</button>
+        <button data-filter="production">Production</button>
+        <button data-filter="beta">Beta</button>
+      </div>
+      <button id="refresh" class="refresh">Run checks now</button>
+    </div>
+
+    <section id="systems" class="systems" aria-live="polite">
+      <p class="loading">Contacting edge monitor…</p>
+    </section>
+
+    <footer>
+      <span>11 targets · checks every 5 minutes</span>
+      <a href="https://github.com/JohnBieniek/GoHealthMonitor">View Go source ↗</a>
+    </footer>
+  </main>
+</body>
+</html>

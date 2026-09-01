@@ -1,0 +1,5 @@
+.wrangler/
+node_modules/
+healthmon.exe
+worker-configuration.d.ts
+coverage.out
