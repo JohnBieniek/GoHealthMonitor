@@ -39,6 +39,7 @@
   "env": {
     "develop": {
       "name": "go-health-monitor-beta",
+      "workers_dev": false,
       "routes": [
         { "pattern": "warden-beta.experiencewhimsy.com", "custom_domain": true }
       ],
