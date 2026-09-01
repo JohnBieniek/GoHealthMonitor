@@ -11,7 +11,7 @@ function card(item) {
   const isProduction = item.environment === "production";
   const tag = isProduction ? "a" : "article";
   const link = isProduction ? ` href="${escapeHTML(item.url)}" target="_blank" rel="noopener noreferrer" aria-label="Open ${escapeHTML(item.name)}"` : "";
-  return `<${tag} class="card ${isProduction ? "card-link " : ""}${item.healthy ? "" : "down"}"${link}>
+  return `<${tag} class="card ${item.environment} ${isProduction ? "card-link " : ""}${item.healthy ? "" : "down"}"${link}>
     <div><h2>${escapeHTML(item.name)}</h2><p class="meta">${escapeHTML(item.group)} · ${escapeHTML(item.environment)}</p></div>
     <span class="badge">${item.healthy ? "OPERATIONAL" : "DEGRADED"}</span>
     <div class="metrics"><span>HTTP <b>${item.statusCode || "ERR"}</b></span><span>LATENCY <b>${item.latencyMs} ms</b></span><span>CHECKED <b>${new Date(item.checkedAt).toLocaleTimeString()}</b></span></div>
