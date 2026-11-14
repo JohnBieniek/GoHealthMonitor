@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="860" viewBox="0 0 1280 860" role="img" aria-labelledby="title description">
+<title id="title">Whimsy&#x27;s Warden architecture</title><desc id="description">Two probe implementations share one declarative target inventory. Go runs as a CLI; the deployed edge probe implementation is TypeScript, not a hosted Go process.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#6584a1"/></marker></defs>
+<rect width="1280" height="860" rx="24" fill="#f4f7fb"/>
+<path d="M24 0 H1256 Q1280 0 1280 24 V122 H0 V24 Q0 0 24 0" fill="#132b43"/>
+<text x="40" y="48" fill="#ffffff" font-family="Arial,sans-serif" font-size="30" font-weight="700">Whimsy&#x27;s Warden</text>
+<text x="40" y="84" fill="#c5d7e9" font-family="Arial,sans-serif" font-size="18">Two probe implementations share one declarative target inventory.</text>
+<polyline points="465,225 390,225" fill="none" stroke="#6584a1" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="427.5" y="212" text-anchor="middle" font-family="Arial,sans-serif" font-size="12" fill="#39536b">targets</text>
+<polyline points="815,225 890,225" fill="none" stroke="#6584a1" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="852.5" y="212" text-anchor="middle" font-family="Arial,sans-serif" font-size="12" fill="#39536b">targets</text>
+<polyline points="215,290 215,375" fill="none" stroke="#6584a1" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="225" y="332.5" text-anchor="start" font-family="Arial,sans-serif" font-size="12" fill="#39536b">probe</text>
+<polyline points="1065,290 1065,332.5 215,332.5 215,375" fill="none" stroke="#6584a1" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="640.0" y="325.5" text-anchor="middle" font-family="Arial,sans-serif" font-size="12" fill="#39536b">probe</text>
+<polyline points="1065,290 1065,375" fill="none" stroke="#6584a1" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="1075" y="332.5" text-anchor="start" font-family="Arial,sans-serif" font-size="12" fill="#39536b">snapshot</text>
+<polyline points="640,375 640,332.5 1065,332.5 1065,290" fill="none" stroke="#6584a1" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="852.5" y="325.5" text-anchor="middle" font-family="Arial,sans-serif" font-size="12" fill="#39536b">status API</text>
+<polyline points="1065,505 1065,590" fill="none" stroke="#6584a1" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="1075" y="547.5" text-anchor="start" font-family="Arial,sans-serif" font-size="12" fill="#39536b">new incident</text>
+<rect x="40" y="160" width="350" height="130" rx="12" fill="#ffffff" stroke="#cbd8e5"/>
+<rect x="40" y="178" width="5" height="32" rx="2" fill="#267b91"/>
+<text x="60" y="198" font-family="Arial,sans-serif" font-size="21" font-weight="700" fill="#17334e">Go command-line monitor</text>
+<text x="60" y="233" font-family="Arial,sans-serif" font-size="16" fill="#415b70">Bounded worker pool</text>
+<text x="60" y="260" font-family="Arial,sans-serif" font-size="16" fill="#415b70">Timeouts, cancellation, and results</text>
+<rect x="465" y="160" width="350" height="130" rx="12" fill="#ffffff" stroke="#cbd8e5"/>
+<rect x="465" y="178" width="5" height="32" rx="2" fill="#267b91"/>
+<text x="485" y="198" font-family="Arial,sans-serif" font-size="21" font-weight="700" fill="#17334e">Target inventory</text>
+<text x="485" y="233" font-family="Arial,sans-serif" font-size="16" fill="#415b70">config/targets.json</text>
+<text x="485" y="260" font-family="Arial,sans-serif" font-size="16" fill="#415b70">Production and beta health URLs</text>
+<rect x="890" y="160" width="350" height="130" rx="12" fill="#ffffff" stroke="#cbd8e5"/>
+<rect x="890" y="178" width="5" height="32" rx="2" fill="#267b91"/>
+<text x="910" y="198" font-family="Arial,sans-serif" font-size="21" font-weight="700" fill="#17334e">Cloudflare Worker</text>
+<text x="910" y="233" font-family="Arial,sans-serif" font-size="16" fill="#415b70">TypeScript fetch-based probes</text>
+<text x="910" y="260" font-family="Arial,sans-serif" font-size="16" fill="#415b70">Cron checks and manual refresh</text>
+<rect x="40" y="375" width="350" height="130" rx="12" fill="#ffffff" stroke="#cbd8e5"/>
+<rect x="40" y="393" width="5" height="32" rx="2" fill="#267b91"/>
+<text x="60" y="413" font-family="Arial,sans-serif" font-size="21" font-weight="700" fill="#17334e">Monitored applications</text>
+<text x="60" y="448" font-family="Arial,sans-serif" font-size="16" fill="#415b70">HTTP health responses</text>
+<text x="60" y="475" font-family="Arial,sans-serif" font-size="16" fill="#415b70">Status and latency measurements</text>
+<rect x="465" y="375" width="350" height="130" rx="12" fill="#ffffff" stroke="#cbd8e5"/>
+<rect x="465" y="393" width="5" height="32" rx="2" fill="#267b91"/>
+<text x="485" y="413" font-family="Arial,sans-serif" font-size="21" font-weight="700" fill="#17334e">Operational dashboard</text>
+<text x="485" y="448" font-family="Arial,sans-serif" font-size="16" fill="#415b70">Static browser interface</text>
+<text x="485" y="475" font-family="Arial,sans-serif" font-size="16" fill="#415b70">Status API and environment filters</text>
+<rect x="890" y="375" width="350" height="130" rx="12" fill="#ffffff" stroke="#cbd8e5"/>
+<rect x="890" y="393" width="5" height="32" rx="2" fill="#267b91"/>
+<text x="910" y="413" font-family="Arial,sans-serif" font-size="21" font-weight="700" fill="#17334e">Cloudflare KV</text>
+<text x="910" y="448" font-family="Arial,sans-serif" font-size="16" fill="#415b70">Latest health snapshot</text>
+<text x="910" y="475" font-family="Arial,sans-serif" font-size="16" fill="#415b70">Incident state and deduplication</text>
+<rect x="890" y="590" width="350" height="130" rx="12" fill="#ffffff" stroke="#cbd8e5"/>
+<rect x="890" y="608" width="5" height="32" rx="2" fill="#267b91"/>
+<text x="910" y="628" font-family="Arial,sans-serif" font-size="21" font-weight="700" fill="#17334e">Incident email</text>
+<text x="910" y="663" font-family="Arial,sans-serif" font-size="16" fill="#415b70">New down or slow transitions</text>
+<text x="910" y="690" font-family="Arial,sans-serif" font-size="16" fill="#415b70">Cloudflare email binding</text>
+<line x1="40" y1="795" x2="1240" y2="795" stroke="#cbd8e5"/>
+<text x="40" y="829" font-family="Arial,sans-serif" font-size="15" fill="#415b70">Go runs as a CLI; the deployed edge probe implementation is TypeScript, not a hosted Go process.</text>
+</svg>

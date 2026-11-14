@@ -2,6 +2,8 @@
 
 A portfolio-grade availability monitor built around a bounded Go worker pool and deployed at the Cloudflare edge. It checks John Bieniek's production applications and stable beta deployments, reports status and latency, and presents the results in a responsive operational dashboard.
 
+[![Whimsy's Warden architecture](docs/architecture.svg)](docs/architecture.md)
+
 Production is mounted into the Whimsy site at
 [`experiencewhimsy.com/warden/`](https://experiencewhimsy.com/warden/). The
 standalone Worker URL remains available as an operational fallback.
